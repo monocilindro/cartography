@@ -25,6 +25,7 @@
 #' @param symbol type of symbol in the legend 'line' or 'box'
 #' @param border color of the box borders
 #' @param horiz layout of legend, TRUE for horizontal layout 
+#' @param hist hist
 #' @export
 #' @examples
 #' library(sf)
@@ -58,7 +59,7 @@ legendChoro <- function(pos = "topleft",
                         nodata.txt = "No data", 
                         nodata.col = "white",
                         frame=FALSE,symbol="box", 
-                        border = "black", horiz = FALSE){
+                        border = "black", horiz = FALSE, hist=TRUE){
   if (horiz && symbol=="box"){
     legendChoroHoriz(pos = pos, title.txt = title.txt, title.cex = title.cex,
                      values.cex = values.cex, breaks = breaks, col = col, cex = cex,
@@ -107,7 +108,14 @@ legendChoro <- function(pos = "topleft",
     xref <- legcoord$xref
     yref <- legcoord$yref
     
+    
     # Frame
+    if(hist){
+    fdim <-c(xref -delta1/2, xref + legend_xsize + delta1,
+             yref - delta1, yref + legend_ysize + delta1 * 2)
+    return(fdim)
+    }
+    
     if (frame==TRUE){
       rect(xref - delta1, yref - delta1, xref + legend_xsize + delta1 * 2,
            yref + legend_ysize + delta1 * 2, border = "black",  col="white")
@@ -144,7 +152,60 @@ legendChoro <- function(pos = "topleft",
     text(x = xref, y = yref + (length(breaks)-1) * height + delta1,
          labels = title.txt, adj = c(0,0), cex = title.cex)
   }
+
 }
+
+
+#' @title Map Hist
+#' @description Plot hist.
+#' @name maphist
+#' @param v position 
+#' @param p c(px, py)
+#' @param cols cols
+#' @param bks bks
+#' @export
+#' @importFrom graphics grconvertX grconvertY hist
+#' @examples 
+#' library(cartography)
+#' library(sf)
+#' mtq <- st_read(system.file("gpkg/mtq.gpkg", package="cartography"))
+#' # Population density
+#' mtq$POPDENS <- 1e6 * mtq$POP / st_area(x = mtq)
+#' par(mar = c(0,0,0,0))
+#' bks <- getBreaks(mtq$POPDENS, method = "quantile", nclass = 40)
+#' cols <- carto.pal(pal1 = "wine.pal", 6)
+#' choroLayer(x = mtq, var = "POPDENS", breaks = bks, col = cols,
+#'            border = NA, legend.pos = "n")
+#' pos <- "bottom"
+#' fdim <- legendChoro(pos = pos, title.txt = "super long", breaks = bks,
+#'                     col = cols, nodata = FALSE, frame = TRUE, hist = TRUE)
+#' hist <- c(fdim[1],fdim[2],0,0)
+#' if(substr(pos, 1,3)=="top"){
+#'   hist[4] <- fdim[3]
+#'   hist[3] <- fdim[3] - diff(fdim[1:2])
+#' }else{
+#'   hist[3] <- fdim[3]
+#'   hist[4] <- fdim[3] + diff(fdim[1:2])
+#'   fdim[3:4] <- fdim[3:4] + diff(fdim[1:2])
+#'   pos <- fdim[c(1,3)]
+#' }
+#' 
+#' maphist(v = mtq$POPDENS, p = hist, cols = cols, bks = bks)
+#' legendChoro(pos = pos, title.txt = "super long", breaks = bks, col = cols,
+#'            nodata = FALSE, frame = TRUE, hist = FALSE)
+maphist <- function(v,p, cols, bks){
+  opar <- par(no.readonly = TRUE)
+  opar$new <- TRUE
+  par(fig = c(grconvertX(c(p[1], p[2]), from="user", to="ndc"),
+              grconvertY(c(p[3], p[4]) , from="user", to="ndc")),
+      new = TRUE)
+  hist(v, freq = F, breaks = bks,col = cols, axes = FALSE, 
+       xlab="", ylab = "", main = "", border = cols)
+  par(opar)
+}
+
+
+
 
 
 #' @title  Legend for Typology Maps

@@ -8,7 +8,7 @@ legendChoro(pos = "topleft", title.txt = "Title of the legend",
   title.cex = 0.8, values.cex = 0.6, breaks, col, cex = 1,
   values.rnd = 2, nodata = TRUE, nodata.txt = "No data",
   nodata.col = "white", frame = FALSE, symbol = "box",
-  border = "black", horiz = FALSE)
+  border = "black", horiz = FALSE, hist = TRUE)
 }
 \arguments{
 \item{pos}{position of the legend, one of "topleft", "top", 
@@ -49,6 +49,8 @@ not (FALSE).}
 \item{border}{color of the box borders}
 
 \item{horiz}{layout of legend, TRUE for horizontal layout}
+
+\item{hist}{hist}
 }
 \description{
 Plot legend for choropleth maps.
