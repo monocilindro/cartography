@@ -203,7 +203,33 @@ maphist <- function(v,p, cols, bks){
        xlab="", ylab = "", main = "", border = cols)
   par(opar)
 }
-
+# library(cartography)
+# library(sf)
+# mtq <- st_read(system.file("gpkg/mtq.gpkg", package="cartography"))
+# # Population density
+# mtq$POPDENS <- 1e6 * mtq$POP / st_area(x = mtq)
+# par(mar = c(0,0,0,0))
+# bks <- getBreaks(mtq$MED, method = "quantile", nclass = 5)
+# cols <- carto.pal(pal1 = "wine.pal", length(bks)-1)
+# choroLayer(x = mtq, var = "MED", breaks = bks, col = cols,
+# border = NA, legend.pos = "n")
+# pos <- "topright"
+# fdim <- legendChoro(pos = pos, title.txt = "super long", breaks = bks,
+# col = cols, nodata = FALSE, frame = TRUE, hist = TRUE)
+# hist <- c(fdim[1],fdim[2],0,0)
+# if(substr(pos, 1,3)=="top"){
+#   hist[4] <- fdim[3]
+#   hist[3] <- fdim[3] - diff(fdim[1:2])
+# }else{
+#   hist[3] <- fdim[3]
+#   hist[4] <- fdim[3] + diff(fdim[1:2])
+#   fdim[3:4] <- fdim[3:4] + diff(fdim[1:2])
+#   pos <- fdim[c(1,3)]
+# }
+# 
+# 
+# ??cartography
+# 
 
 
 
