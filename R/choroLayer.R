@@ -35,6 +35,8 @@
 #' @param legend.horiz whether to display the legend horizontally (TRUE) or
 #' not (FALSE).
 #' @param colNA no data color. 
+#' @param cex cex
+#' @param pch pch
 #' @param add whether to add the layer to an existing plot (TRUE) or 
 #' not (FALSE).
 #' @details 
@@ -53,6 +55,7 @@
 #' \emph{The Choice of a Class Interval }», Journal of the American Statistical 
 #' Association, vol. 21, n° 153, mars 1926, p. 65-66.
 #' @seealso \link{getBreaks}, \link{carto.pal},  \link{legendChoro}, \link{propSymbolsChoroLayer}
+#' @importFrom methods is
 #' @export
 #' @examples
 #' library(sf)
@@ -87,6 +90,8 @@ choroLayer <- function(x, spdf, df, spdfid = NULL, dfid = NULL, var,
                        legend.frame = FALSE,
                        legend.border = "black",
                        legend.horiz = FALSE,
+                       pch = 20, 
+                       cex = 2,
                        add = FALSE){
   
   if (missing(x)){
@@ -104,15 +109,41 @@ choroLayer <- function(x, spdf, df, spdfid = NULL, dfid = NULL, var,
     nodata <- TRUE
     colVec[is.na(colVec)] <- colNA
   }
-  
   # plot
-  if(max(class(sf::st_geometry(x)) %in% c("sfc_MULTILINESTRING"))==1){
-    plot(sf::st_geometry(x), col = colVec, lwd = lwd, add = add)
-  }else{
-    plot(sf::st_geometry(x), col = colVec, border = border, lwd = lwd, 
-         add = add)
+  if (is(sf::st_geometry(x), c("sfc_LINESTRING", "sfc_MULTILINESTRING"))){
+    cx <- 'line'
+  }
+  if (is(sf::st_geometry(x), c("sfc_POLYGON", "sfc_MULTIPOLYGON"))){
+    cx <- 'poly'
+  }
+  if (is(sf::st_geometry(x), c("sfc_POINT", "sfc_MULTIPOINT"))){
+    cx <- 'point'
   }
   
+  switch(
+    cx, 
+    line = {
+      plot(sf::st_geometry(x), col = colVec, lwd = lwd, add = add)
+      symbol <- "box"
+    }, 
+    poly = {plot(sf::st_geometry(x), col = colVec, border = border, 
+                 lwd = lwd, add = add)
+      symbol <- "line"
+    }, 
+    point = {
+      if (pch %in% 21:25){
+        bg <- colVec
+        colVec <- border 
+      }else{
+        bg <- NA
+      }
+      plot(sf::st_geometry(x), col = colVec, pch=pch, cex = cex[1], 
+           lwd = lwd, add = add, bg = bg)
+      symbol <- "point"
+      legend.border <- border
+    }
+  )
+
   legendChoro(pos = legend.pos, 
               title.txt = legend.title.txt,
               title.cex = legend.title.cex,
@@ -121,7 +152,10 @@ choroLayer <- function(x, spdf, df, spdfid = NULL, dfid = NULL, var,
               col = layer$col, 
               values.rnd = legend.values.rnd,
               frame = legend.frame, 
-              symbol="box",  nodata.col = colNA,
+              pt.cex = cex, 
+              pch = pch,
+              symbol = symbol,  
+              nodata.col = colNA,
               nodata = nodata, 
               nodata.txt = legend.nodata, 
               border = legend.border, 

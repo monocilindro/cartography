@@ -25,6 +25,8 @@
 #' @param symbol type of symbol in the legend 'line' or 'box'
 #' @param border color of the box borders
 #' @param horiz layout of legend, TRUE for horizontal layout 
+#' @param pt.cex pt.cex 
+#' @param pch pch 
 #' @export
 #' @examples
 #' library(sf)
@@ -53,12 +55,16 @@ legendChoro <- function(pos = "topleft",
                         breaks, 
                         col, 
                         cex = 1,
-                        values.rnd =2, 
+                        pt.cex = 1,
+                        pch = 20,
+                        values.rnd = 2, 
                         nodata = TRUE, 
                         nodata.txt = "No data", 
                         nodata.col = "white",
-                        frame=FALSE,symbol="box", 
-                        border = "black", horiz = FALSE){
+                        frame = FALSE, 
+                        symbol = "box", 
+                        border = "black", 
+                        horiz = FALSE){
   if (horiz && symbol=="box"){
     legendChoroHoriz(pos = pos, title.txt = title.txt, title.cex = title.cex,
                      values.cex = values.cex, breaks = breaks, col = col, cex = cex,
@@ -122,15 +128,32 @@ legendChoro <- function(pos = "topleft",
       yref <- yref + height + delta2
     }
     
-    if (symbol=="box"){
+    if (symbol == "box"){
       for (i in 0:(length(breaks)-2)){
         rect(xref, yref + i * height, xref + width, yref + height + i * height,
              col = col[i+1], border = border, lwd = 0.4)
       }
-    }else{
+    }
+    if (symbol == "line"){
       for (i in 0:(length(breaks)-2)){
         segments(xref, yref + height / 2+ i*height, xref + width,
                  yref + i*height + height / 2, lwd = 5, col = col[i+1], lend = 1)
+      }
+    }
+    if (symbol == "point"){
+      if (pch %in% 21:25){
+        print(col)
+        bg <- col
+        col <- border 
+        col <- rep(col, length(breaks)-1)
+        
+      }else{
+        bg <- NA
+      }
+      for (i in 0:(length(breaks)-2)){
+        points(xref + width / 2, yref + height / 2 + i * height, cex = pt.cex, 
+               pch = pch, bg = bg[i+1],
+               col = col[i+1])
       }
     }
     

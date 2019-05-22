@@ -6,9 +6,9 @@
 \usage{
 legendChoro(pos = "topleft", title.txt = "Title of the legend",
   title.cex = 0.8, values.cex = 0.6, breaks, col, cex = 1,
-  values.rnd = 2, nodata = TRUE, nodata.txt = "No data",
-  nodata.col = "white", frame = FALSE, symbol = "box",
-  border = "black", horiz = FALSE)
+  pt.cex = 1, pch = 20, values.rnd = 2, nodata = TRUE,
+  nodata.txt = "No data", nodata.col = "white", frame = FALSE,
+  symbol = "box", border = "black", horiz = FALSE)
 }
 \arguments{
 \item{pos}{position of the legend, one of "topleft", "top", 
@@ -31,6 +31,10 @@ It is possible to use a vector of characters.}
 \item{col}{a vector of colors.}
 
 \item{cex}{size of the legend. 2 means two times bigger.}
+
+\item{pt.cex}{pt.cex}
+
+\item{pch}{pch}
 
 \item{values.rnd}{number of decimal places of the values in 
 the legend.}

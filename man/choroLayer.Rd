@@ -11,7 +11,7 @@ choroLayer(x, spdf, df, spdfid = NULL, dfid = NULL, var,
   legend.title.cex = 0.8, legend.values.cex = 0.6,
   legend.values.rnd = 0, legend.nodata = "no data",
   legend.frame = FALSE, legend.border = "black",
-  legend.horiz = FALSE, add = FALSE)
+  legend.horiz = FALSE, pch = 20, cex = 2, add = FALSE)
 }
 \arguments{
 \item{x}{an sf object, a simple feature collection. If x is used then spdf, df, spdfid and dfid are not.}
@@ -69,6 +69,10 @@ not (FALSE).}
 
 \item{legend.horiz}{whether to display the legend horizontally (TRUE) or
 not (FALSE).}
+
+\item{pch}{pch}
+
+\item{cex}{cex}
 
 \item{add}{whether to add the layer to an existing plot (TRUE) or 
 not (FALSE).}
