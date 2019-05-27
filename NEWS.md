@@ -3,7 +3,7 @@
 # cartography 2.2.1
 
 ## Minor changes
-- internaly, use sf instead of sp for hexagonal grid computation.
+- internally, use sf instead of sp for hexagonal grid computation.
 - bugfix in LegendChoro() no more warning when pos = c(x,y). 
 
 
@@ -19,10 +19,10 @@
 ## New features
 
 - barscale(): new position ("bottomright", "bottomleft" or c(x,y))
-- legendChoro(): horiz argument to display an horizonthal legend, border to set the 
+- legendChoro(): horiz argument to display an horizontal legend, border to set the 
 border color of the boxes
 - choroLayer() and propSymbolsChoroLayer(): legend.horiz, legend.var2.horiz, legend.border and legend.var2.border arguments to use new legendChoro arguments.
-- layoutLayer(): horiz argument to display sources and author in verticaly in the bottomright corner (horiz = FALSE). posscale argument ("bottomright" or 
+- layoutLayer(): horiz argument to display sources and author in vertically in the bottomright corner (horiz = FALSE). posscale argument ("bottomright" or 
 "bottomleft") for the scale bar position.
 - legend*() and relevant function: new "bottomleftextra" position for the legend. It displays the legend in the bottomleft corner with and extra padding that allows the display of sources and author with layoutLayer() without overlapping. 
 
@@ -31,12 +31,12 @@ border color of the boxes
 - *typoLayer(): fix incorrect display of typo legends if legend.order is not provided.
 - getLinkLayer(): fix error when x and df ids do not perfectly match.
 - getTiles(): only suggest OSM basemap sources without API key requirement.
-- getTiles(): add source citation recommandation in getTiles()
+- getTiles(): add source citation recommendation in getTiles()
 - small fixes on propTrianglesLayer(), gradLinkTypoLayer(), layoutLayer(), getOuterBorder(), dotDensityLayer(), labelLayer()
-- vignette: Introduction/descritpion of the package, sf bases examples and dataset description. 
+- vignette: Introduction/description of the package, sf bases examples and dataset description. 
 - README: update
 - examples: examples are now based on sf object
-- data: addition of a GeoPackage on Martinique municipalities (descritpion on vignette), a csv on work mobilities
+- data: addition of a GeoPackage on Martinique municipalities (description on vignette), a csv on work mobilities
 - add a test suit
 - add a pkgdown website
 
@@ -113,10 +113,10 @@ Most functions are kept unchanged except for the addition of an x argument
 used to take sf objects as inputs.
 
 - getBorders, getOuterBorders: an x argument is added in first position, x is added to take sf objects as inputs, if x is used then spdf is not used. spdfid is replaced by id. An sf object (MULTILINESTRING) of borders is returned.
-- discLayer: spdf, spdfid1, spdfid2 and dfid are replaced by x (an sf object as outputed by getBorders). 
+- discLayer: spdf, spdfid1, spdfid2 and dfid are replaced by x (an sf object, output of getBorders). 
 - getGridLayer: getGridLayer replaces getGridLayer + getGridData, x argument replaces spdf and can take an sf object or an sp object. var is added to enter the name(s) of numeric field(s) to compute into the grid. cellsize refers to the targeted area of the cells. The function returns an sf object
 - getLinkLayer: spdf, spdf2, df, spdfid, spdf2id, dfids and dfide arguments are replaced by x, xid, df and dfid. x can be either a Spatial*DataFrame or an sf object. The function returns an sf LINESTRING instead of a SpatialLinesDataFrame.
-- propLinkLayer, gradLinkLayer, gradLinkTypoLayer: spdf, df, spdfid, spdfids, spdfide, dfid, dfids and dfide arguments are replaced by x, df, xid and dfid. x must be an sf object (as outputed by getLinkLayer).
+- propLinkLayer, gradLinkLayer, gradLinkTypoLayer: spdf, df, spdfid, spdfids, spdfide, dfid, dfids and dfide arguments are replaced by x, df, xid and dfid. x must be an sf object (output getLinkLayer).
 - legend* functions have been enhanced to be more customizable. It is now possible to lay legend on specified x & y. 
 - propSymbolsLayer: breakval and col2 arguments are defunct, use propSymbolsTypoLayer if needed. 
 ## Major changes 
@@ -133,7 +133,7 @@ used to take sf objects as inputs.
 ## Minor changes
 
 - Addition of 2 discretization methods (thanks to @MBunel): 'em' and 'arith'. The "arith" method is based on a arithmetic progression along the variable values. The "em" method is based on subset defined by the mean of a numeric vector.
-- Update the list of the available tiles servers (getTiles). This list is reduced and could be extended again depanding on the rosm package evolution.
+- Update the list of the available tiles servers (getTiles). This list is reduced and could be extended again depending on the rosm package evolution.
 
 
 # cartography 1.4.1
@@ -170,7 +170,7 @@ used to take sf objects as inputs.
 - As Jenks and Fisher-Jenks algorithms are based on the same principle and give quite similar results but Fisher-Jenks is much faster, "fisher-jenks" method replaces "jenks" in getBreaks methods.
 - In most function, if df is missing then spdf@data is used instead.
 - Introduce carto.pal.info() function that gives the list of the cartographic palettes. 
-- Addition of two qualitatives color palettes ("pastel.pal"" and "multi.pal").
+- Addition of two qualitative color palettes ("pastel.pal"" and "multi.pal").
 
 
 # cartography 1.3
@@ -182,7 +182,7 @@ used to take sf objects as inputs.
 
 ## Minor changes   
 
-- Introduce the legend.*.values.order parameter in typoLayer, propSymbolsTypoLayer and gradLinkTypoLayer. This parameter allows to order modalities in the legend and eases the color assignement.   
+- Introduce the legend.*.values.order parameter in typoLayer, propSymbolsTypoLayer and gradLinkTypoLayer. This parameter allows to order modalities in the legend and eases the color assignment.   
 - Change min value in prop*Layer legends.  
 - Suppress zero values in propSymb*Layer.
 - getGridLayer is faster.

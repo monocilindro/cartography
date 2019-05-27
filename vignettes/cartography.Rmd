@@ -243,7 +243,7 @@ north(pos = "topleft")
 
 ## Proportional Symbols and Typology Map
 
-`propSymbolsTypoLayer()` creates a map of symbols that are proportional to values of a first variable and colored to reflect the modalities of a second qualitatice variable. A combination of `propSymbolsLayer()` and `typoLayer()` arguments is used. 
+`propSymbolsTypoLayer()` creates a map of symbols that are proportional to values of a first variable and colored to reflect the modalities of a second qualitative variable. A combination of `propSymbolsLayer()` and `typoLayer()` arguments is used. 
 
 ```{r proptypo, fig.height=6, fig.width=5, margin=TRUE}
 library(sf)
