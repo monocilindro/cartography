@@ -124,11 +124,11 @@ choroLayer <- function(x, spdf, df, spdfid = NULL, dfid = NULL, var,
     cx, 
     line = {
       plot(sf::st_geometry(x), col = colVec, lwd = lwd, add = add)
-      symbol <- "box"
+      symbol <- "line"
     }, 
     poly = {plot(sf::st_geometry(x), col = colVec, border = border, 
                  lwd = lwd, add = add)
-      symbol <- "line"
+      symbol <- "box"
     }, 
     point = {
       if (pch %in% 21:25){
